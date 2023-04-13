@@ -14,9 +14,12 @@ import api from "../../services/api";
 import { Logo } from "../../components/Logo";
 import { FoodList } from "../../components/FoodList";
 
+import {useNavigation} from '@react-navigation/native'
+
 export function Home() {
   const [inputSearch, setInputSearch] = useState("");
   const [foods, setFoods] = useState([]);
+  const navigation = useNavigation()
 
   useEffect(() => {
     // console.log("Loading the data")
@@ -29,8 +32,12 @@ export function Home() {
   }, []);
 
   function handleSearch() {
-    console.log("Search button clicked!");
-    console.log(inputSearch);
+    if(inputSearch === ''){
+      return
+    }
+
+    let input = inputSearch
+    navigation.navigate("Search")
   }
 
   return (
