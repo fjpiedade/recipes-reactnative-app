@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 //retrieves favorites list of recipes
 export async function getListOfFavorites(key) {
   const favorites = await AsyncStorage.getItem(key);
-  console.log("show all recipe on favorite list");
+  // console.log("show all recipe on favorite list");
   return JSON.parse(favorites) || [];
 }
 
@@ -17,25 +17,24 @@ export async function saveNewItemToFavoriteList(
     (item) => item.id === newRecipeToSaveOnFavoriteList.id
   );
   if (hasItem) {
-    console.log("Recipe already Exist On The Favorite List");
+    // console.log("Recipe already Exist On The Favorite List");
     return;
   }
 
   myFavorites.push(newRecipeToSaveOnFavoriteList);
   await AsyncStorage.setItem(key, JSON.stringify(myFavorites));
-  console.log("Recipe saved successfully On The Favorite List");
+  // console.log("Recipe saved successfully On The Favorite List");
 }
 
 //remove Item/Recipe from favorites list
 export async function removeItemFromFavoriteList(id) {
   let listOfFavoriteRecipes = await getListOfFavorites("@easyrecipes");
-
   let myFavorites = listOfFavoriteRecipes.filter((item) => {
     return item.id !== id;
   });
 
   await AsyncStorage.setItem("@easyrecipes", JSON.stringify(myFavorites));
-  console.log("Item/Recipe deleted Successfully!");
+  // console.log("Item/Recipe deleted Successfully!");
   return myFavorites;
 }
 

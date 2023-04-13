@@ -10,16 +10,17 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
+import { useNavigation } from "@react-navigation/native";
+import { Text as MotiText } from "moti";
+
 import api from "../../services/api";
 import { Logo } from "../../components/Logo";
 import { FoodList } from "../../components/FoodList";
 
-import {useNavigation} from '@react-navigation/native'
-
 export function Home() {
   const [inputSearch, setInputSearch] = useState("");
   const [foods, setFoods] = useState([]);
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   useEffect(() => {
     // console.log("Loading the data")
@@ -32,19 +33,54 @@ export function Home() {
   }, []);
 
   function handleSearch() {
-    if(inputSearch === ''){
-      return
+    if (inputSearch === "") {
+      return;
     }
 
-    let input = inputSearch
-    navigation.navigate("Search")
+    let input = inputSearch;
+    setInputSearch("");
+    navigation.navigate("Search", { searchText: inputSearch });
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <Logo />
-      <Text style={styles.title}>Find Recipes ...</Text>
-      <Text style={styles.title}>Combine with you</Text>
+      <MotiText
+        style={styles.title}
+        from={{
+          opacity: 0,
+          translateY: 15,
+        }}
+        animate={{
+          opacity: 1,
+          translateY: 0,
+        }}
+        transition={{
+          delay: 100,
+          type: "timing",
+          duration: 650,
+        }}
+      >
+        Find Recipes ...
+      </MotiText>
+      <MotiText
+        style={styles.title}
+        from={{
+          opacity: 0,
+          translateY: 20,
+        }}
+        animate={{
+          opacity: 1,
+          translateY: 0,
+        }}
+        transition={{
+          delay: 200,
+          type: "timing",
+          duration: 850,
+        }}
+      >
+        Combine with you
+      </MotiText>
 
       <View style={styles.form}>
         <TextInput
